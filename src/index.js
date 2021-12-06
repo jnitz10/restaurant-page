@@ -1,5 +1,7 @@
 import './style.css';
 import { makeMainPage } from './mainPage'
+import { makeMenu } from './menu'
+import { makeContact } from './contact'
 
 function tabBar() {
     const bar = document.createElement('div');
@@ -7,6 +9,7 @@ function tabBar() {
 
     const homeTab = document.createElement('div');
     homeTab.classList.add('tab');
+    homeTab.classList.add('selected');
     homeTab.id = 'home';
     homeTab.innerHTML = 'Home';
     bar.appendChild(homeTab);
@@ -35,7 +38,32 @@ content.appendChild(name);
 
 content.appendChild(tabBar());
 
+const currentPage = document.createElement('div');
+content.appendChild(currentPage);
+
+currentPage.appendChild(makeMainPage());
 
 
+document.getElementById('menu').addEventListener('click', function() {
+    currentPage.innerHTML = '';
+    document.getElementById('menu').classList.add('selected');
+    document.getElementById('home').classList.remove('selected');
+    document.getElementById('contact').classList.remove('selected')
+    currentPage.appendChild(makeMenu());
+})
 
-content.appendChild(makeMainPage());
+document.getElementById('home').addEventListener('click', function() {
+    currentPage.innerHTML = '';
+    document.getElementById('home').classList.add('selected');
+    document.getElementById('menu').classList.remove('selected');
+    document.getElementById('contact').classList.remove('selected')
+    currentPage.appendChild(makeMainPage());
+})
+
+document.getElementById('contact').addEventListener('click', function() {
+    currentPage.innerHTML = '';
+    document.getElementById('contact').classList.add('selected');
+    document.getElementById('menu').classList.remove('selected');
+    document.getElementById('home').classList.remove('selected')
+    currentPage.appendChild(makeContact());
+})
